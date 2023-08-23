@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/grid_with_wrap.dart';
+import 'package:flutter_ui/screens/interactive_grid.dart';
 
 class FlutterUi extends StatelessWidget {
   const FlutterUi({super.key});
@@ -9,13 +9,13 @@ class FlutterUi extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueAccent,
-          background: Colors.black,
-        ),
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          background: Colors.deepPurple.shade100,
+        ),
       ),
-      home: const GridWrapView(),
+      home: const InteractiveGrid(),
     );
   }
 }

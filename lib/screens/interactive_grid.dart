@@ -1,43 +1,39 @@
 import 'package:flutter/material.dart';
 
-class GridWrapView extends StatefulWidget {
-  const GridWrapView({super.key});
+class InteractiveGrid extends StatefulWidget {
+  const InteractiveGrid({super.key});
 
   @override
-  State<GridWrapView> createState() => _GridWrapViewState();
+  State<InteractiveGrid> createState() => _InteractiveGridState();
 }
 
-class _GridWrapViewState extends State<GridWrapView> {
-  double top = -450;
-  double left = -450;
-  int columns = 4; //must be even, so each column has either odd or even index
-  int spaces = 3; //columns - 1, number of spaces between columns
-  double childWidth = 220;
+class _InteractiveGridState extends State<InteractiveGrid> {
+  double top = 20;
+  double left = 20;
+  int coulmns = 4; // must be even
+  int spaces = 3; // coulmns -1
   double spacing = 25;
+  double childWidth = 200;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
         onPanUpdate: (details) {
-          setState(
-            () {
-              top += (details.delta.dy * 2);
-              left += (details.delta.dx * 2);
-            },
-          );
+          setState(() {
+            top += (details.delta.dy);
+            left += (details.delta.dx);
+          });
         },
         child: Stack(
-          children: <Widget>[
+          children: [
             AnimatedPositioned(
-              curve: Curves.easeOut,
               top: top,
               left: left,
-              duration: const Duration(
-                milliseconds: 500,
-              ),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut,
               child: SizedBox(
-                width: (columns * childWidth) + (spaces * spacing),
+                width: (coulmns * childWidth) + (spaces * spacing),
                 child: Wrap(
                   spacing: spacing,
                   runSpacing: spacing,
@@ -45,23 +41,20 @@ class _GridWrapViewState extends State<GridWrapView> {
                     20,
                     (index) {
                       return Transform.translate(
-                        offset: Offset(
-                          0,
-                          index.isEven ? 150 : 0,
-                        ),
+                        offset: Offset(0, index.isOdd ? 150 : 0),
                         child: Container(
                           width: childWidth,
-                          height: 420,
+                          height: 400,
                           decoration: BoxDecoration(
-                            color: Colors.grey[900],
+                            color: Colors.deepPurple[400],
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Center(
                             child: Text(
                               index.toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
                                 fontSize: 200,
+                                color: Colors.deepPurple[100],
                               ),
                             ),
                           ),
